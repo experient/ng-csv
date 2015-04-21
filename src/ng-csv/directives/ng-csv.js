@@ -19,7 +19,8 @@ angular.module('ngCsv.directives').
         lazyLoad: '@lazyLoad',
         addByteOrderMarker: "@addBom",
         ngClick: '&',
-        charset: '@charset'
+        charset: '@charset',
+        doClick: '&'
       },
       controller: [
         '$scope',
@@ -100,8 +101,8 @@ angular.module('ngCsv.directives').
 
         element.bind('click', function (e) {
           scope.buildCSV().then(function (csv) {
-            if(scope.ngClick && typeof scope.ngClick === 'function')
-              ngClick(csv);
+            if(scope.doClick && scope.doClick() && typeof scope.doClick() === 'function')
+              scope.doClick()(csv);
             else
               doClick();
           });
