@@ -100,7 +100,10 @@ angular.module('ngCsv.directives').
 
         element.bind('click', function (e) {
           scope.buildCSV().then(function (csv) {
-            doClick();
+            if(scope.ngClick && typeof scope.ngClick === 'function')
+              ngClick(csv);
+            else
+              doClick();
           });
           scope.$apply();
         });
